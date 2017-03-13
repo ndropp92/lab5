@@ -15,18 +15,26 @@ void printPlayers(player[]);
 void showStats(player[],int);
 void printTeams(player[]);
 void changeStat(player[], int);
+void menu(player[]);
 int main() {
 	player players[10];
 	readStats(players);
-	//printPlayers(players);
-	int option;
+	menu(players);
+	return 0;
+}
+void printTeams(player players[]) {
+	for(int x=0;x<10;x++)
+		cout << "Team: " << players[x].team << endl;
+}
+void menu(player players[]) {
 	while (true) {
 		cout << "Choose an option!!\n";
 		cout << "1: Print Players.\n";
 		cout << "2: Print teams.\n";
 		cout << "3: Show stats of specific player.\n";
 		cout << "4: Change stat of player.\n";
-		cout << "5: Exit.";
+		//cout << "5: Exit.";
+		int option;
 		cin >> option;
 		switch (option) {
 		case 1:
@@ -49,16 +57,11 @@ int main() {
 			changeStat(players, option);
 			break;
 		case 5:
-			return 0;
+			//return 0;
 			break;
 		}
 	}
 	//cout << players[2].lName << endl;
-	return 0;
-}
-void printTeams(player players[]) {
-	for(int x=0;x<10;x++)
-		cout << "Team: " << players[x].team << endl;
 }
 void changeStat(player players[] , int option){
 	cout << "Which stat do you want to change for " << players[option].fName << " " << players[option].lName << endl;
