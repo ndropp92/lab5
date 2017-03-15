@@ -1,5 +1,6 @@
 #include<iostream>
 #include<fstream>
+#include<iomanip>
 #include<string>
 using namespace std;
 struct player {
@@ -17,6 +18,7 @@ void printTeams(player[]);
 void changeStat(player[], int);
 void menu(player[]);
 int main() {
+	cout << fixed << showpoint << setprecision(3);
 	player players[10];
 	readStats(players);
 	menu(players);
@@ -54,7 +56,7 @@ void menu(player players[]) {
 			cout << "Which player?\n";
 			printPlayers(players); //prints players for players choice
 			cin >> player; //player choice
-			changeStat(players, option);
+			changeStat(players, player);
 			break;
 		case 5:
 			//return 0;
@@ -64,7 +66,8 @@ void menu(player players[]) {
 	//cout << players[2].lName << endl;
 }
 void changeStat(player players[] , int option){
-	cout << "Which stat do you want to change for " << players[option-1].fName << " " << players[option-1].lName << endl;
+	option -= 1;
+	cout << "Which stat do you want to change for " << players[option].fName << " " << players[option].lName << endl;
 	cout << "1: Team" << endl;
 	cout << "2: Position " << endl;
 	cout << "3: RBI " << endl;
@@ -83,50 +86,50 @@ void changeStat(player players[] , int option){
 		cout << "What do you want to change the team to? ";
 		
 		cin >> teamName;
-		players[option-1].team = teamName;
+		players[option].team = teamName;
 		
 		break;
 	case 2:
 		cout << "What do you want to change the position to? ";		
 		cin >> pos;
-		players[option-1].position = pos;
+		players[option].position = pos;
 		
 		break;
 	case 3:
 		cout << "What do you want to change the RBI to ? ";
 		cin >> rbi2;
-		players[option-1].rbi = rbi2;
+		players[option].rbi = rbi2;
 		
 		break;
 	case 4:
 		//wins
 		cout << "What do you want to change the wins to? ";
 		cin >> wins2;
-		players[option-1].wins = wins2;
+		players[option].wins = wins2;
 		break;
 	case 5:
 		//homeruns
 		cout << "What do you want to change the homeruns to? ";
 		cin >> hr2;
-		players[option-1].hr = hr2;
+		players[option].hr = hr2;
 		break;
 	case 6:
 		//bats
 		cout << "What do you want to change the batting to? (Left or right) ";
 		cin >> bat;
-		players[option-1].rBat = bat;
+		players[option].rBat = bat;
 		break;
 	case 7:
 		//throws
 		cout << "What do you want to change the throwing to? (Left or right) ";
 		cin >> rthorw;
-		players[option-1].rThrow = rthorw;
+		players[option].rThrow = rthorw;
 		break;
 	case 8:
 		//obp
 		cout << "What do you want to change the OBP to? ";
 		cin >> obp2;
-		players[option-1].obp = obp2;
+		players[option].obp = obp2;
 		break;
 	}
 	updateStats(players, 4);
@@ -187,5 +190,4 @@ void updateStats(player player[],int updatedStat) {
 	}
 	out.close();
 	readStats(player);
-}	out.close();
 }
