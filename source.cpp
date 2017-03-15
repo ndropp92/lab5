@@ -64,7 +64,7 @@ void menu(player players[]) {
 	//cout << players[2].lName << endl;
 }
 void changeStat(player players[] , int option){
-	cout << "Which stat do you want to change for " << players[option].fName << " " << players[option].lName << endl;
+	cout << "Which stat do you want to change for " << players[option-1].fName << " " << players[option-1].lName << endl;
 	cout << "1: Team" << endl;
 	cout << "2: Position " << endl;
 	cout << "3: RBI " << endl;
@@ -75,58 +75,58 @@ void changeStat(player players[] , int option){
 	cout << "8: OBP " << endl;
 	int stat;
 	cin >> stat;
-	string teamName, position,bat,rthorw;
-	int rbi,wins,hr;
-	double obp;
+	string teamName, pos,bat,rthorw;
+	int rbi2,wins2,hr2;
+	double obp2;
 	switch (stat) {
 	case 1:
 		cout << "What do you want to change the team to? ";
 		
 		cin >> teamName;
-		players[option].team = teamName;
+		players[option-1].team = teamName;
 		
 		break;
 	case 2:
 		cout << "What do you want to change the position to? ";		
-		cin >> position;
-		players[option].position = position;
+		cin >> pos;
+		players[option-1].position = pos;
 		
 		break;
 	case 3:
 		cout << "What do you want to change the RBI to ? ";
-		cin >> rbi;
-		players[option].rbi = rbi;
+		cin >> rbi2;
+		players[option-1].rbi = rbi2;
 		
 		break;
 	case 4:
 		//wins
 		cout << "What do you want to change the wins to? ";
-		cin >> wins;
-		players[option].wins = wins;
+		cin >> wins2;
+		players[option-1].wins = wins2;
 		break;
 	case 5:
 		//homeruns
 		cout << "What do you want to change the homeruns to? ";
-		cin >> hr;
-		players[option].hr = hr;
+		cin >> hr2;
+		players[option-1].hr = hr2;
 		break;
 	case 6:
 		//bats
 		cout << "What do you want to change the batting to? (Left or right) ";
 		cin >> bat;
-		players[option].rBat = bat;
+		players[option-1].rBat = bat;
 		break;
 	case 7:
 		//throws
 		cout << "What do you want to change the throwing to? (Left or right) ";
 		cin >> rthorw;
-		players[option].rThrow = rthorw;
+		players[option-1].rThrow = rthorw;
 		break;
 	case 8:
 		//obp
 		cout << "What do you want to change the OBP to? ";
-		cin >> obp;
-		players[option].obp = obp;
+		cin >> obp2;
+		players[option-1].obp = obp2;
 		break;
 	}
 	updateStats(players, 4);
@@ -135,8 +135,7 @@ void changeStat(player players[] , int option){
 void showStats(player player[],int x) {
 	x -= 1;
 	cout << player[x].fName << " " << player[x].lName << endl;
-	cout << "Team: " << player[x].team << endl;
-	
+	cout << "Team: " << player[x].team << endl;	
 	cout << "Position: " << player[x].position << endl;
 	cout << "RBI: " << player[x].rbi <<endl;
 	cout << "Wins: " << player[x].wins << endl;
@@ -172,7 +171,7 @@ void readStats(player player[]) {
 }
 void updateStats(player player[],int updatedStat) {
 	ofstream out;
-	out.open("newplayers.txt"); 
+	out.open("players.txt"); 
 	for (int x = 0; x<10; x++) {
 		out << player[x].fName << " ";
 		out << player[x].lName << " ";
@@ -184,7 +183,9 @@ void updateStats(player player[],int updatedStat) {
 		out << player[x].yearsActive << " ";
 		out << player[x].rThrow << " ";
 		out << player[x].rBat << " ";
-		out << player[x].obp;
+		out << player[x].obp << endl;
 	}
 	out.close();
+	readStats(player);
+}	out.close();
 }
