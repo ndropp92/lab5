@@ -29,13 +29,14 @@ void printTeams(player players[]) {
 		cout << "Team: " << players[x].team << endl;
 }
 void menu(player players[]) {
-	while (true) {
+	bool looping = true;
+	while (looping) {
 		cout << "Choose an option!!\n";
 		cout << "1: Print Players.\n";
 		cout << "2: Print teams.\n";
 		cout << "3: Show stats of specific player.\n";
 		cout << "4: Change stat of player.\n";
-		//cout << "5: Exit.";
+		cout << "5: Exit.\n";
 		int option;
 		cin >> option;
 		switch (option) {
@@ -59,14 +60,16 @@ void menu(player players[]) {
 			changeStat(players, player);
 			break;
 		case 5:
-			//return 0;
+			cout << endl;
+			looping = false;
+			exit;
 			break;
 		}
 	}
 	//cout << players[2].lName << endl;
 }
-void changeStat(player players[] , int option){
-	option -= 1;
+void changeStat(player players[], int option) {
+	option -= 1; // subtracts one because player array is 0-8, and numbers are 1-9
 	cout << "Which stat do you want to change for " << players[option].fName << " " << players[option].lName << endl;
 	cout << "1: Team" << endl;
 	cout << "2: Position " << endl;
@@ -76,30 +79,30 @@ void changeStat(player players[] , int option){
 	cout << "6: Throws " << endl;
 	cout << "7: Bats " << endl;
 	cout << "8: OBP " << endl;
-	int stat;
+	int stat; // takes in stat to change
 	cin >> stat;
-	string teamName, pos,bat,rthorw;
-	int rbi2,wins2,hr2;
+	string teamName, pos, bat, rthorw;
+	int rbi2, wins2, hr2;
 	double obp2;
-	switch (stat) {
+	switch (stat) { // changes output based on stat changed
 	case 1:
 		cout << "What do you want to change the team to? ";
-		
+
 		cin >> teamName;
 		players[option].team = teamName;
-		
+
 		break;
 	case 2:
-		cout << "What do you want to change the position to? ";		
+		cout << "What do you want to change the position to? ";
 		cin >> pos;
 		players[option].position = pos;
-		
+
 		break;
 	case 3:
 		cout << "What do you want to change the RBI to ? ";
 		cin >> rbi2;
 		players[option].rbi = rbi2;
-		
+
 		break;
 	case 4:
 		//wins
@@ -133,11 +136,12 @@ void changeStat(player players[] , int option){
 		break;
 	}
 	updateStats(players, 4);
-	// can't really change years active, na i mean?
+	// only updates after, as the function can only be called once in an instance
+	// 
 }
-void showStats(player player[],int x) {
-	x -= 1;
-	cout << player[x].fName << " " << player[x].lName << endl;
+	void showStats(player player[],int x) { //prints stats of specific player
+	x -= 1; // subtracts one because user enters 1-9, and array goes from 0-8
+	cout << player[x].fName << " " << player[x].lName << endl; 
 	cout << "Team: " << player[x].team << endl;	
 	cout << "Position: " << player[x].position << endl;
 	cout << "RBI: " << player[x].rbi <<endl;
@@ -148,16 +152,16 @@ void showStats(player player[],int x) {
 	cout << "\tBats: " << player[x].rBat << "\n";
 	cout << "OBP: " << player[x].obp << endl;
 }
-void printPlayers(player player[]) {
+void printPlayers(player player[]) { //prints players, all players
 	
 	for (int x = 0; x < 10; x++) 
 		cout << "Player "<< x+1 << ": " << player[x].fName << " "<< player[x].lName << endl;
 		
 }
 void readStats(player player[]) {
-	ifstream in;
-	in.open("players.txt");	
-	for(int x=0;x<10;x++) {		
+	ifstream in; // starts variable
+	in.open("players.txt");	 //opens file name
+	for(int x=0;x<10;x++) {		//takes in variables
 		in >> player[x].fName;		
 		in >> player[x].lName;		
 		in >> player[x].team;
@@ -170,13 +174,13 @@ void readStats(player player[]) {
 		in >> player[x].rBat;		
 		in >> player[x].obp;		
 	}
-	in.close();	
+	in.close();	//closes variables
 }
 void updateStats(player player[],int updatedStat) {
-	ofstream out;
+	ofstream out; //opens up same file, used to read players from, essentially updates file
 	out.open("players.txt"); 
 	for (int x = 0; x<10; x++) {
-		out << player[x].fName << " ";
+		out << player[x].fName << " "; // updates file equal to whatever is in player array(which is what is in the file)
 		out << player[x].lName << " ";
 		out << player[x].team<< " ";
 		out << player[x].position << " ";
@@ -188,6 +192,6 @@ void updateStats(player player[],int updatedStat) {
 		out << player[x].rBat << " ";
 		out << player[x].obp << endl;
 	}
-	out.close();
-	readStats(player);
+	out.close(); //closes file
+	readStats(player); // updates player arrary by reading in the new file and setting player array equal to the new data in the file
 }
